@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+  rmq:
+    image: rabbitmq:alpine
+    ports:
+      - "5672:5672"
+    
+  Zipkin:
+    image: openzipkin/zipkin
+    environment:
+      - RABBIT_URI=amqp://rmq
+    ports:
+      - "9411:9411"
+    depends_on:
+      - "rmq"
